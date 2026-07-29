@@ -1,11 +1,16 @@
+# Dependencies
 node_modules/
+
+# Build output
 dist/
 .astro/
 .vercel/
 
+# Test output
+coverage/
 playwright-report/
 test-results/
 blob-report/
-coverage/
 
+# Logs
 *.log
