@@ -89,11 +89,7 @@ export default defineConfig([
    * Node.js tooling and configuration files.
    */
   {
-    files: [
-      "scripts/**/*.mjs",
-      "*.config.{js,mjs,cjs,ts}",
-      "playwright.config.ts"
-    ],
+    files: ["scripts/**/*.mjs", "*.config.{js,mjs,cjs,ts}", "playwright.config.ts"],
 
     languageOptions: {
       globals: globals.nodeBuiltin
