@@ -1,0 +1,42 @@
+<section id="about" class="section" aria-labelledby="about-title">
+  <div class="container about-grid">
+    <header class="section-header">
+      <p class="eyebrow">Professional profile</p>
+      <h2 id="about-title" class="section-title">Backend engineering beyond CRUD</h2>
+    </header>
+
+    <div class="about-copy">
+      <p>
+        My work centres on systems where correctness, reliability and operational clarity matter:
+        payment flows, reconciliation, asynchronous processing, secure REST APIs and cloud-native
+        services.
+      </p>
+      <p>
+        I approach architecture through explicit failure modes and trade-offs. That means defining
+        transaction boundaries, idempotency, retry behaviour, observability, security and recovery
+        paths before treating a service as production-ready.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .about-copy {
+    max-width: 46rem;
+  }
+
+  .about-copy p {
+    font-size: var(--text-lg);
+  }
+
+  @media (min-width: 64rem) {
+    .about-grid {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+  }
+</style>

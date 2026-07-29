@@ -1,0 +1,16 @@
+{
+  "name": "Basil N G - Backend Engineer",
+  "short_name": "Basil N G",
+  "description": "Backend engineering portfolio for Basil N G.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a1018",
+  "theme_color": "#0a1018",
+  "icons": [
+    {
+      "src": "/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

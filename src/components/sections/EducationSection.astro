@@ -1,0 +1,66 @@
+---
+import { education } from "../../data/profile";
+---
+
+<section id="education" class="section section--muted" aria-labelledby="education-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Education</p>
+      <h2 id="education-title" class="section-title">Computer science foundation</h2>
+    </header>
+
+    <div class="education-grid">
+      {
+        education.map((item) => (
+          <article class="education-card card">
+            <p class="period">
+              {item.start} - {item.end}
+            </p>
+            <h3>{item.qualification}</h3>
+            <p class="field">{item.field}</p>
+            <p>{item.institution}</p>
+            <p class="location">{item.location}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .education-grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .education-card {
+    padding: var(--space-6);
+  }
+
+  .period {
+    color: var(--colour-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+  }
+
+  h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .field {
+    margin-bottom: var(--space-4);
+    color: var(--colour-text);
+    font-weight: 680;
+  }
+
+  .location {
+    margin-bottom: 0;
+    color: var(--colour-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .education-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

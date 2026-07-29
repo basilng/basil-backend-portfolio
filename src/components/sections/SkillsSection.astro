@@ -1,0 +1,67 @@
+---
+import { skillGroups } from "../../data/profile";
+---
+
+<section id="skills" class="section section--muted" aria-labelledby="skills-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Core expertise</p>
+      <h2 id="skills-title" class="section-title">Production-oriented backend engineering</h2>
+      <p class="section-description">
+        Technologies are presented in the context of the engineering problems they solve, not as a
+        disconnected keyword list.
+      </p>
+    </header>
+
+    <div class="skills-grid">
+      {
+        skillGroups.map((group) => (
+          <article class="skill-card card">
+            <h3>{group.title}</h3>
+            <p>{group.summary}</p>
+            <ul class="tag-list" aria-label={`${group.title} technologies`}>
+              {group.skills.map((skill) => (
+                <li class="tag">{skill}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .skill-card {
+    display: flex;
+    min-height: 19rem;
+    flex-direction: column;
+    padding: var(--space-6);
+  }
+
+  .skill-card h3 {
+    margin-bottom: var(--space-4);
+  }
+
+  .skill-card p {
+    flex-grow: 1;
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 48rem) {
+    .skills-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 70rem) {
+    .skills-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

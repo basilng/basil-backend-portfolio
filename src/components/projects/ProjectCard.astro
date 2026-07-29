@@ -1,0 +1,91 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  readonly project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const statusLabel = {
+  active: "In active development",
+  completed: "Completed",
+  planned: "Planned"
+}[project.data.status];
+---
+
+<article class="project-card card">
+  <div>
+    <p class="status">{statusLabel}</p>
+    <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
+    <p>{project.data.summary}</p>
+  </div>
+
+  <ul class="tag-list" aria-label={`${project.data.title} technologies`}>
+    {project.data.technologies.slice(0, 8).map((technology) => <li class="tag">{technology}</li>)}
+  </ul>
+
+  <a
+    class="case-study-link"
+    href={`/projects/${project.id}/`}
+    aria-label={`View ${project.data.title} case study`}
+  >
+    View case study <span aria-hidden="true">→</span>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    min-height: 24rem;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    transition:
+      transform var(--transition),
+      border-color var(--transition),
+      background-color var(--transition);
+  }
+
+  .project-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--colour-accent);
+    background: var(--colour-surface-hover);
+  }
+
+  .status {
+    margin-bottom: var(--space-3);
+    color: var(--colour-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 750;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin-bottom: var(--space-4);
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    color: var(--colour-accent);
+  }
+
+  .tag-list {
+    flex-grow: 1;
+    align-content: flex-start;
+  }
+
+  .case-study-link {
+    color: var(--colour-accent);
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  .case-study-link:hover {
+    text-decoration: underline;
+  }
+</style>

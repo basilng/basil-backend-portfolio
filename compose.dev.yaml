@@ -1,0 +1,27 @@
+services:
+  portfolio:
+    image: docker.io/library/node:24-bookworm-slim
+    working_dir: /workspace
+    init: true
+    command:
+      - npm
+      - run
+      - dev
+      - --
+      - --host
+      - 0.0.0.0
+      - --ignore-lock
+    ports:
+      - "4321:4321"
+    environment:
+      NODE_ENV: development
+      ASTRO_TELEMETRY_DISABLED: "1"
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  node_modules:

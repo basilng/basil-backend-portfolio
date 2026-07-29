@@ -1,0 +1,15 @@
+.git
+.github
+.astro
+dist
+node_modules
+
+playwright-report
+test-results
+blob-report
+coverage
+
+.vscode
+.idea
+
+*.log

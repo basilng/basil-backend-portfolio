@@ -1,0 +1,181 @@
+---
+import { siteConfig } from "../../data/site";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string): boolean =>
+  href === "/" ? currentPath === "/" : !href.includes("#") && currentPath.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${siteConfig.name} home`}>
+      <span class="brand-mark" aria-hidden="true">BN</span>
+      <span class="brand-copy">
+        <strong>{siteConfig.name}</strong>
+        <span>Backend Engineer</span>
+      </span>
+    </a>
+
+    <nav class="desktop-navigation" aria-label="Primary navigation">
+      {
+        siteConfig.navigation.map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <details class="mobile-navigation">
+      <summary>Menu</summary>
+      <nav aria-label="Mobile navigation">
+        {
+          siteConfig.navigation.map((item) => (
+            <a href={item.href} aria-current={isActive(item.href) ? "page" : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-height: var(--header-height);
+    border-bottom: 1px solid rgb(42 58 80 / 80%);
+    background: rgb(10 16 24 / 92%);
+    backdrop-filter: blur(0.8rem);
+  }
+
+  .header-inner {
+    display: flex;
+    min-height: var(--header-height);
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--colour-text);
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    display: grid;
+    width: 2.45rem;
+    height: 2.45rem;
+    place-items: center;
+    border: 1px solid rgb(94 234 212 / 35%);
+    border-radius: var(--radius-md);
+    background: rgb(94 234 212 / 10%);
+    color: var(--colour-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 800;
+  }
+
+  .brand-copy {
+    display: none;
+    line-height: 1.2;
+  }
+
+  .brand-copy strong,
+  .brand-copy span {
+    display: block;
+  }
+
+  .brand-copy span {
+    margin-top: var(--space-1);
+    color: var(--colour-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  .desktop-navigation {
+    display: none;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .desktop-navigation a {
+    color: var(--colour-text-secondary);
+    font-size: var(--text-sm);
+    font-weight: 680;
+    text-decoration: none;
+  }
+
+  .desktop-navigation a:hover,
+  .desktop-navigation a[aria-current="page"] {
+    color: var(--colour-accent);
+  }
+
+  .mobile-navigation {
+    position: relative;
+  }
+
+  .mobile-navigation summary {
+    min-height: 2.7rem;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    color: var(--colour-text);
+    cursor: pointer;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    list-style: none;
+  }
+
+  .mobile-navigation summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-navigation nav {
+    position: absolute;
+    top: calc(100% + var(--space-3));
+    right: 0;
+    display: grid;
+    width: min(18rem, calc(100vw - 2rem));
+    padding: var(--space-3);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-lg);
+    background: var(--colour-bg-alt);
+    box-shadow: var(--shadow);
+  }
+
+  .mobile-navigation nav a {
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    color: var(--colour-text-secondary);
+    font-weight: 680;
+    text-decoration: none;
+  }
+
+  .mobile-navigation nav a:hover,
+  .mobile-navigation nav a[aria-current="page"] {
+    background: var(--colour-surface);
+    color: var(--colour-accent);
+  }
+
+  @media (min-width: 36rem) {
+    .brand-copy {
+      display: block;
+    }
+  }
+
+  @media (min-width: 54rem) {
+    .desktop-navigation {
+      display: flex;
+    }
+
+    .mobile-navigation {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "../../components/projects/ProjectCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Projects"
+  description="Backend engineering projects and architecture case studies covering distributed systems, APIs, payments, security, reliability and cloud-native operation."
+>
+  <section class="section">
+    <div class="container">
+      <header class="section-header">
+        <p class="eyebrow">Engineering work</p>
+        <h1>Projects and architecture case studies</h1>
+        <p class="section-description">
+          Each case study explains the problem, system boundaries, technology decisions, trade-offs,
+          production risks and operational design.
+        </p>
+      </header>
+
+      <div class="project-grid">
+        {projects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-2xl);
+  }
+
+  .project-grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 48rem) {
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 70rem) {
+    .project-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

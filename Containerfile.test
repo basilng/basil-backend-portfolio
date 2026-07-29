@@ -1,0 +1,44 @@
+ARG NODE_IMAGE=docker.io/library/node:24-bookworm-slim
+ARG PLAYWRIGHT_VERSION
+
+# --------------------------------------------------
+# Stage 1: Build with the project's pinned Node image
+# --------------------------------------------------
+
+FROM ${NODE_IMAGE} AS builder
+
+WORKDIR /workspace
+
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+# --------------------------------------------------
+# Stage 2: Run tests with Playwright's browser image
+# --------------------------------------------------
+
+FROM mcr.microsoft.com/playwright:v${PLAYWRIGHT_VERSION}-noble AS test
+
+WORKDIR /workspace
+
+ENV CI=true
+
+COPY package.json package-lock.json ./
+
+RUN npm ci \
+    && npm cache clean --force
+
+COPY . .
+
+# Ensure the tests use the artifact built with Node 24.
+COPY --from=builder /workspace/dist ./dist
+
+RUN chown -R pwuser:pwuser /workspace
+
+USER pwuser
+
+CMD ["npm", "run", "test:a11y"]

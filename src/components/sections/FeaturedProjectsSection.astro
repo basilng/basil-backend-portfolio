@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "../projects/ProjectCard.astro";
+
+const projects = (await getCollection("projects"))
+  .filter((project) => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+---
+
+<section id="projects" class="section" aria-labelledby="projects-title">
+  <div class="container">
+    <header class="section-header">
+      <p class="eyebrow">Featured work</p>
+      <h2 id="projects-title" class="section-title">
+        Architecture and implementation case studies
+      </h2>
+      <p class="section-description">
+        Projects document requirements, architecture, trade-offs, failure scenarios, security,
+        observability and operational constraints - not only source code.
+      </p>
+    </header>
+
+    <div class="project-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+
+    <p class="all-projects"><a href="/projects/">View all projects →</a></p>
+  </div>
+</section>
+
+<style>
+  .project-grid {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .all-projects {
+    margin-top: var(--space-8);
+    margin-bottom: 0;
+  }
+
+  .all-projects a {
+    color: var(--colour-accent);
+    font-weight: 750;
+    text-decoration: none;
+  }
+
+  @media (min-width: 48rem) {
+    .project-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 70rem) {
+    .project-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

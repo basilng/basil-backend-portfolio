@@ -1,0 +1,56 @@
+---
+import { siteConfig } from "../../data/site";
+---
+
+<section id="contact" class="section" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-card card">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Let us discuss backend engineering opportunities.</h2>
+        <p>Review the case studies and resume, then connect through email, LinkedIn or GitHub.</p>
+      </div>
+
+      <div class="button-group">
+        <a class="button button--primary" href={siteConfig.links.email}>Email</a>
+        <a
+          class="button button--secondary"
+          href={siteConfig.links.linkedin}
+          target="_blank"
+          rel="noopener noreferrer">LinkedIn</a
+        >
+        <a
+          class="button button--secondary"
+          href={siteConfig.links.github}
+          target="_blank"
+          rel="noopener noreferrer">GitHub</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-card {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+    padding: var(--space-8);
+  }
+
+  h2 {
+    max-width: 22ch;
+    margin-bottom: var(--space-4);
+  }
+
+  p:last-child {
+    max-width: 55ch;
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 64rem) {
+    .contact-card {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
+</style>

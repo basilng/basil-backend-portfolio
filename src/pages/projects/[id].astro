@@ -1,0 +1,195 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project }
+  }));
+}
+
+interface Props {
+  readonly project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const statusLabel = {
+  active: "In active development",
+  completed: "Completed",
+  planned: "Planned"
+}[project.data.status];
+---
+
+<BaseLayout
+  title={project.data.title}
+  description={project.data.summary}
+  canonicalPath={`/projects/${project.id}/`}
+  type="article"
+>
+  <article class="section">
+    <div class="container container--narrow">
+      <header class="case-header">
+        <p class="eyebrow">Architecture case study · {statusLabel}</p>
+        <h1>{project.data.title}</h1>
+        <p class="lead">{project.data.summary}</p>
+
+        <ul class="tag-list" aria-label="Project technologies">
+          {project.data.technologies.map((technology) => <li class="tag">{technology}</li>)}
+        </ul>
+
+        <div class="button-group">
+          {
+            project.data.repositoryUrl && (
+              <a
+                class="button button--primary"
+                href={project.data.repositoryUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View source
+              </a>
+            )
+          }
+          {
+            project.data.demoUrl && (
+              <a
+                class="button button--secondary"
+                href={project.data.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View demo
+              </a>
+            )
+          }
+          <a class="button button--secondary" href="/projects/">All projects</a>
+        </div>
+      </header>
+
+      <section class="summary-grid" aria-label="Project summary">
+        <div class="card summary-card">
+          <h2>Problem</h2>
+          <p>{project.data.problem}</p>
+        </div>
+
+        <div class="card summary-card">
+          <h2>Responsibilities</h2>
+          <ul>{project.data.responsibilities.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="card summary-card">
+          <h2>Architecture</h2>
+          <ul>{project.data.architectureHighlights.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="card summary-card">
+          <h2>Security</h2>
+          <ul>{project.data.securityControls.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="card summary-card">
+          <h2>Observability</h2>
+          <ul>{project.data.observability.map((item) => <li>{item}</li>)}</ul>
+        </div>
+
+        <div class="card summary-card">
+          <h2>Production concerns</h2>
+          <ul>{project.data.productionConcerns.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      </section>
+
+      <div class="case-content">
+        <Content />
+      </div>
+
+      <section class="trade-offs card" aria-labelledby="trade-offs-title">
+        <h2 id="trade-offs-title">Trade-offs</h2>
+        <ul>{project.data.tradeOffs.map((item) => <li>{item}</li>)}</ul>
+      </section>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .case-header {
+    margin-bottom: var(--space-12);
+  }
+
+  h1 {
+    margin-bottom: var(--space-5);
+    font-size: var(--text-2xl);
+  }
+
+  .lead {
+    margin-bottom: var(--space-6);
+    font-size: var(--text-lg);
+  }
+
+  .case-header .tag-list {
+    margin-bottom: var(--space-8);
+  }
+
+  .summary-grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-bottom: var(--space-12);
+  }
+
+  .summary-card {
+    padding: var(--space-6);
+  }
+
+  .summary-card h2,
+  .trade-offs h2 {
+    font-size: var(--text-xl);
+  }
+
+  .summary-card ul,
+  .trade-offs ul {
+    display: grid;
+    gap: var(--space-3);
+    padding-left: 1.25rem;
+  }
+
+  .case-content :global(h2) {
+    margin-top: var(--space-12);
+    margin-bottom: var(--space-5);
+    font-size: var(--text-xl);
+  }
+
+  .case-content :global(h3) {
+    margin-top: var(--space-8);
+  }
+
+  .case-content :global(p),
+  .case-content :global(li) {
+    max-width: 72ch;
+  }
+
+  .case-content :global(pre) {
+    overflow-x: auto;
+    padding: var(--space-5);
+    border: 1px solid var(--colour-border);
+    border-radius: var(--radius-md);
+    background: var(--colour-bg-alt);
+  }
+
+  .case-content :global(code) {
+    font-size: var(--text-sm);
+  }
+
+  .trade-offs {
+    margin-top: var(--space-12);
+    padding: var(--space-6);
+  }
+
+  @media (min-width: 48rem) {
+    .summary-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
