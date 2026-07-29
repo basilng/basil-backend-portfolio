@@ -1,4 +1,18 @@
-dist
-.astro
-node_modules
-public/resume/*.pdf
+# Dependencies
+node_modules/
+
+# Astro generated output
+.astro/
+dist/
+
+# Vercel generated files
+.vercel/
+
+# Test output
+playwright-report/
+test-results/
+blob-report/
+coverage/
+
+# Logs
+*.log
