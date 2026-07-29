@@ -14,13 +14,14 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate": "npm run check && npm run lint && npm run format:check && npm run security:check",
     "build": "npm run validate && astro build && node scripts/verify-build.mjs",
     "preview": "astro preview",
     "test:a11y": "playwright test",
     "audit": "npm audit --audit-level=high",
     "ci": "npm run audit && npm run build && npm run test:a11y",
-    "security:check": "node scripts/verify-security.mjs"
+    "security:check": "node scripts/verify-security.mjs",
+    "diagnose:format": "node -v && npm -v && prettier --version && prettier --find-config-path vercel.json && prettier --file-info vercel.json",
+    "validate": "npm run diagnose:format && npm run check && npm run lint && npm run format:check && npm run security:check"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",
