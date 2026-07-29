@@ -1,6 +1,6 @@
 # Basil N G - Backend Engineer Portfolio
 
-Production-oriented Astro and TypeScript portfolio for a Staff Engineer / Senior Java Backend Engineer.
+Astro and TypeScript portfolio for a Staff Engineer / Senior Java Backend Engineer.
 
 ## Requirement coverage
 
@@ -116,6 +116,8 @@ Open `http://localhost:4321`.
 ## Validation
 
 ```powershell
+podman compose -f compose.dev.yaml run --rm portfolio `
+  npm install --package-lock-only
 podman compose -f compose.dev.yaml run --rm portfolio npm run check
 podman compose -f compose.dev.yaml run --rm portfolio npm run lint
 podman compose -f compose.dev.yaml run --rm portfolio npm run format:check
@@ -186,7 +188,7 @@ Professional history and skills live in `src/data/profile.ts`. Shared contact an
 
 ## Production checklist
 
-- [ ] Set the real domain and GitHub URL.
+- [x] Set the real domain and GitHub URL.
 - [ ] Replace example domains in `robots.txt` and `security.txt`.
 - [ ] Generate and commit `package-lock.json`.
 - [ ] Run `npm audit --audit-level=high`.

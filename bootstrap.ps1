@@ -13,7 +13,7 @@ podman @compose npm install --save-dev --save-exact `
   eslint-plugin-astro@latest `
   prettier@latest `
   prettier-plugin-astro@latest `
-  typescript@7.0.2 `
+  typescript@6.0.3 `
   typescript-eslint@latest
 
 podman @compose npm run build
