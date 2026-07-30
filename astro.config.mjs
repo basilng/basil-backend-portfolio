@@ -2,7 +2,7 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://your-project.vercel.app",
+  site: "https://basil-backend-portfolio.vercel.app",
   output: "static",
   trailingSlash: "always",
   compressHTML: true,
