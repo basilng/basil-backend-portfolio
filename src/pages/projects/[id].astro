@@ -1,27 +1,38 @@
 ---
+import type { GetStaticPaths } from "astro";
 import { getCollection, render, type CollectionEntry } from "astro:content";
+
 import BaseLayout from "../../layouts/BaseLayout.astro";
-
-export async function getStaticPaths() {
-  const projects = await getCollection("projects");
-
-  return projects.map((project) => ({
-    params: { id: project.id },
-    props: { project }
-  }));
-}
 
 interface Props {
   readonly project: CollectionEntry<"projects">;
 }
 
-const { project } = Astro.props;
+type ProjectStatus = CollectionEntry<"projects">["data"]["status"];
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection("projects");
+
+  return projects.map((project) => ({
+    params: {
+      id: project.id
+    },
+    props: {
+      project
+    }
+  }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props as Props;
 const { Content } = await render(project);
-const statusLabel = {
+
+const statusLabels = {
   active: "In active development",
   completed: "Completed",
   planned: "Planned"
-}[project.data.status];
+} satisfies Record<ProjectStatus, string>;
+
+const statusLabel = statusLabels[project.data.status];
 ---
 
 <BaseLayout
@@ -34,7 +45,9 @@ const statusLabel = {
     <div class="container container--narrow">
       <header class="case-header">
         <p class="eyebrow">Architecture case study · {statusLabel}</p>
+
         <h1>{project.data.title}</h1>
+
         <p class="lead">{project.data.summary}</p>
 
         <ul class="tag-list" aria-label="Project technologies">
@@ -54,6 +67,7 @@ const statusLabel = {
               </a>
             )
           }
+
           {
             project.data.demoUrl && (
               <a
@@ -66,7 +80,8 @@ const statusLabel = {
               </a>
             )
           }
-          <a class="button button--secondary" href="/projects/">All projects</a>
+
+          <a class="button button--secondary" href="/projects/"> All projects </a>
         </div>
       </header>
 
@@ -78,27 +93,42 @@ const statusLabel = {
 
         <div class="card summary-card">
           <h2>Responsibilities</h2>
-          <ul>{project.data.responsibilities.map((item) => <li>{item}</li>)}</ul>
+
+          <ul>
+            {project.data.responsibilities.map((item) => <li>{item}</li>)}
+          </ul>
         </div>
 
         <div class="card summary-card">
           <h2>Architecture</h2>
-          <ul>{project.data.architectureHighlights.map((item) => <li>{item}</li>)}</ul>
+
+          <ul>
+            {project.data.architectureHighlights.map((item) => <li>{item}</li>)}
+          </ul>
         </div>
 
         <div class="card summary-card">
           <h2>Security</h2>
-          <ul>{project.data.securityControls.map((item) => <li>{item}</li>)}</ul>
+
+          <ul>
+            {project.data.securityControls.map((item) => <li>{item}</li>)}
+          </ul>
         </div>
 
         <div class="card summary-card">
           <h2>Observability</h2>
-          <ul>{project.data.observability.map((item) => <li>{item}</li>)}</ul>
+
+          <ul>
+            {project.data.observability.map((item) => <li>{item}</li>)}
+          </ul>
         </div>
 
         <div class="card summary-card">
           <h2>Production concerns</h2>
-          <ul>{project.data.productionConcerns.map((item) => <li>{item}</li>)}</ul>
+
+          <ul>
+            {project.data.productionConcerns.map((item) => <li>{item}</li>)}
+          </ul>
         </div>
       </section>
 
@@ -108,7 +138,10 @@ const statusLabel = {
 
       <section class="trade-offs card" aria-labelledby="trade-offs-title">
         <h2 id="trade-offs-title">Trade-offs</h2>
-        <ul>{project.data.tradeOffs.map((item) => <li>{item}</li>)}</ul>
+
+        <ul>
+          {project.data.tradeOffs.map((item) => <li>{item}</li>)}
+        </ul>
       </section>
     </div>
   </article>

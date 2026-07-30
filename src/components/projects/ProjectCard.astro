@@ -5,18 +5,29 @@ interface Props {
   readonly project: CollectionEntry<"projects">;
 }
 
-const { project } = Astro.props;
-const statusLabel = {
+type ProjectStatus = CollectionEntry<"projects">["data"]["status"];
+
+const { project } = Astro.props as Props;
+
+const statusLabels = {
   active: "In active development",
   completed: "Completed",
   planned: "Planned"
-}[project.data.status];
+} satisfies Record<ProjectStatus, string>;
+
+const statusLabel = statusLabels[project.data.status];
 ---
 
 <article class="project-card card">
   <div>
     <p class="status">{statusLabel}</p>
-    <h3><a href={`/projects/${project.id}/`}>{project.data.title}</a></h3>
+
+    <h3>
+      <a href={`/projects/${project.id}/`}>
+        {project.data.title}
+      </a>
+    </h3>
+
     <p>{project.data.summary}</p>
   </div>
 

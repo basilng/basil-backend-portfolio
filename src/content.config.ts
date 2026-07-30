@@ -6,6 +6,8 @@ const httpUrl = z.url({
   protocol: /^https?$/
 });
 
+const nonEmptyStringArray = z.array(z.string().min(1)).min(1);
+
 const projects = defineCollection({
   loader: glob({
     pattern: "**/*.{md,mdx}",
@@ -23,7 +25,7 @@ const projects = defineCollection({
 
     order: z.number().int().nonnegative(),
 
-    technologies: z.array(z.string()).min(1),
+    technologies: nonEmptyStringArray,
 
     repositoryUrl: httpUrl.optional(),
 
@@ -31,17 +33,17 @@ const projects = defineCollection({
 
     problem: z.string().min(30),
 
-    responsibilities: z.array(z.string()).min(1),
+    responsibilities: nonEmptyStringArray,
 
-    architectureHighlights: z.array(z.string()).min(1),
+    architectureHighlights: nonEmptyStringArray,
 
-    productionConcerns: z.array(z.string()).min(1),
+    productionConcerns: nonEmptyStringArray,
 
-    securityControls: z.array(z.string()).min(1),
+    securityControls: nonEmptyStringArray,
 
-    observability: z.array(z.string()).min(1),
+    observability: nonEmptyStringArray,
 
-    tradeOffs: z.array(z.string()).min(1),
+    tradeOffs: nonEmptyStringArray,
 
     publishedAt: z.coerce.date(),
 
