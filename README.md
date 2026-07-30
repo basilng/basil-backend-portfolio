@@ -142,6 +142,8 @@ podman compose -f compose.test.yaml run --rm accessibility-test `
 >>   npx playwright test `
 >>   --project=chromium-mobile `
 >>   --grep="layout does not overflow"
+
+ podman compose -f compose.dev.yaml run --rm portfolio npx prettier --write README.md
 ```
 
 The accessibility suite checks the main routes with axe, the skip-link focus path, a 320-pixel viewport, external-link opener isolation and the resume download.
@@ -201,3 +203,41 @@ Professional history and skills live in `src/data/profile.ts`. Shared contact an
 - [ ] Test with keyboard-only navigation and reduced motion enabled.
 - [ ] Confirm that no employer-confidential information is present.
 - [ ] Confirm all performance claims are accurate and defensible.
+
+### Configurations
+
+```powershell
+Vercel
+→ basil-backend-portfolio project
+→ Settings
+→ Domains
+```
+
+```powershell
+Account
+→ Domain Management
+→ Find your domain
+→ DNS
+```
+
+```powershell
+Type:    A
+Host:    blank
+Answer:  value shown by Vercel
+TTL:     600 or default
+```
+
+```powershell
+Type:    CNAME
+Host:    www
+Answer:  value shown by Vercel
+TTL:     600 or default
+```
+
+```powershell
+Resolve-DnsName yourdomain.com -Type A
+Resolve-DnsName www.yourdomain.com -Type CNAME
+curl.exe -I https://www.yourdomain.com/
+curl.exe -I https://yourdomain.com/
+curl.exe -I https://www.yourdomain.com/resume/basil-ng-resume.pdf
+```

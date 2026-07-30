@@ -7,7 +7,7 @@ export const siteConfig = {
     "Staff Engineer and Java backend specialist with 8+ years of experience building secure, resilient and scalable backend systems for payment, financial and enterprise platforms.",
   shortDescription:
     "Designing secure, resilient and observable backend systems with Java and Spring Boot.",
-  siteUrl: "https://basil-backend-portfolio.vercel.app",
+  siteUrl: "https://www.basilng.dev",
   links: {
     github: "https://github.com/basilng",
     linkedin: "https://www.linkedin.com/in/basil-n-g",
