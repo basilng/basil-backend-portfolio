@@ -21,11 +21,12 @@
     "audit": "npm audit --audit-level=high",
     "ci": "npm run audit && npm run build && npm run test:a11y",
     "security:check": "node scripts/verify-security.mjs",
-    "diagnose:format": "node -v && npm -v && prettier --version && prettier --find-config-path vercel.json && prettier --file-info vercel.json && prettier vercel.json > /tmp/vercel.formatted.json && (diff -u vercel.json /tmp/vercel.formatted.json || true)",
-    "validate": "npm run diagnose:format && npm run check && npm run lint && npm run format:check && npm run security:check"
+    "validate": "npm run check && npm run lint && npm run format:check && npm run security:check"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",
+    "@vercel/analytics": "2.0.1",
+    "@vercel/speed-insights": "2.0.0",
     "astro": "7.1.6"
   },
   "devDependencies": {

@@ -241,3 +241,13 @@ curl.exe -I https://www.yourdomain.com/
 curl.exe -I https://yourdomain.com/
 curl.exe -I https://www.yourdomain.com/resume/basil-ng-resume.pdf
 ```
+
+```powershell
+podman compose -f compose.dev.yaml run --rm portfolio `
+  npm install --save-exact `
+  @vercel/analytics@2.0.1 `
+  @vercel/speed-insights@2.0.0
+
+podman compose -f compose.dev.yaml run --rm portfolio `
+  npm ls @vercel/analytics @vercel/speed-insights
+```

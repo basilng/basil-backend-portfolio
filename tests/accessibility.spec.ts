@@ -5,7 +5,8 @@ const pages = [
   { path: "/", heading: /engineering backend systems/i },
   { path: "/projects/", heading: /projects and architecture case studies/i },
   { path: "/resume/", heading: /basil n g/i },
-  { path: "/projects/ecommerce-platform/", heading: /e-commerce microservices platform/i }
+  { path: "/projects/ecommerce-platform/", heading: /e-commerce microservices platform/i },
+  { path: "/privacy/", heading: /privacy/i }
 ];
 
 for (const pageUnderTest of pages) {
