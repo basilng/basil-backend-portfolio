@@ -7,14 +7,17 @@ export default defineConfig({
   trailingSlash: "always",
   compressHTML: true,
   prerenderConflictBehavior: "error",
+
   build: {
     inlineStylesheets: "never"
   },
+
   integrations: [
     sitemap({
-      filter: (page) => !page.endsWith("/404/")
+      filter: (page) => new URL(page).pathname !== "/404/"
     })
   ],
+
   vite: {
     build: {
       cssMinify: true
