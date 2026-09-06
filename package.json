@@ -24,10 +24,10 @@
     "validate": "npm run check && npm run lint && npm run format:check && npm run security:check"
   },
   "dependencies": {
-    "@astrojs/sitemap": "3.7.3",
+    "@astrojs/sitemap": "3.7.4",
     "@vercel/analytics": "2.0.1",
     "@vercel/speed-insights": "2.0.0",
-    "astro": "7.1.6"
+    "astro": "7.3.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
